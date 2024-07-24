@@ -13,11 +13,12 @@ import Footer from './components/Footer.vue';
 
 </template>
 
-<style scoped>
+<style>
 body {
     height: 100vh;
     background-color: #FAD961;
     background-image: linear-gradient(90deg, #FAD961 0%, #F76B1C 100%);
+    overflow: hidden;
   }
 
   footer {
