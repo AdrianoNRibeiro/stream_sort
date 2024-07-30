@@ -3,25 +3,10 @@ import {ref} from 'vue'
 
 const task = ref([]);
 const newTask = ref('');
-const editMode = ref(false);
 
 function addTask() {
     task.value.push(newTask.value);
     newTask.value = '';
-}
-
-function editTask(index) {
-    newTask.value = task.value[index];
-    editMode.value = true
-}
-
-function cancelEdit() {
-    editMode.value = false;
-}
-
-function saveEditedTask(index) {
-    task.value[index] = newTask.value;
-    editMode.value = false;
 }
 
 function deleteTask(index) {
@@ -34,15 +19,14 @@ function deleteTask(index) {
         <div class="content-task">
             <div class="field-input">
                 <input v-model="newTask" @keyup.enter="addTask" placeholder="Novo filme..." class="input-task">
-                <!-- <button @click="addTask" class="button-addTask">+</button> -->
-                <img :src="editMode ? '../../public/img/atualizar.png' : '../../public/img/mais2.png'" alt="" class="icon-buttonAdd" @click="editTask(currentIndex)">
+                <img src="../../public/img/mais2.png" alt="" class="icon-buttonAdd" @click="addTask()">
             </div>
             <div class="list-movies">
                 <ul>
                     <li v-for="(task,index) in task" :key="index">
                         <p>{{ task }}</p>
-                        <img src="../../public/img/edit.png" alt="" class="icon-buttonEdit" @click="editTask(index)" >
-                        <img src="../../public/img/lixo.png" alt="" class="icon-buttonDelete" @click="deleteTask(index)" >
+                        <!-- <img src="../../public/img/lixo.png" alt="" class="icon-buttonDelete" @click="deleteTask(index)" > -->
+                        <button @click="deleteTask(index)" class="buttonDelete">Excluir</button>
                     </li>
                 </ul>
             </div>
@@ -106,29 +90,38 @@ body {overflow: hidden !important;}
 }
 
 .list-movies {
-    width: 94%;
-    height: 80%;
+    width: 96%;
+    height: 60%;
     margin: 8px auto 0px auto;
     padding: 8px;
     overflow: auto;
     background-color: #00988d;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .list-movies ul {
     list-style: none;
-    width: 94%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .list-movies ul li {
     border: 1px solid black;
     display: flex;
-    justify-content: end;
+    flex-direction: column;
     align-items: center;
     background-color: #fef5c8;
     border: none;
     border-radius: 5px;
     margin-bottom: 4px;
+    margin-right: 10px;
+    width: 31%;
+    height: 100px;
 }
 
 .list-movies::-webkit-scrollbar {
@@ -147,10 +140,10 @@ body {overflow: hidden !important;}
 }
 
 li  p {
-    width: 86%;
+    width: 98%;
     font-family: "Josefin Sans", sans-serif;
     font-size: 1.5em;
-    height: 30px;
+    height: 55px;
     transform: translateY(8px);
 }
 
@@ -168,6 +161,10 @@ li  p {
     width: 52px;
     height: 52px;
     transform: translateY(-3px);
+}
+
+.buttonDelete {
+    width: 100%;
 }
 
 </style>
